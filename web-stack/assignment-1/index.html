@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practical 1 - Netflix clone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body > * {
+        color: white;
+        font-family: "Google Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings: "GRAD" 0;
+      }
+      body {
+        min-height: 97vh;
+        background-color: black;
+        background-image:
+          linear-gradient(
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 1)
+          ),
+          url("https://imgs.search.brave.com/C-o1lv9bnPx1TxRnJQeDNwLpQRNsK3Fai4XR0LbW3dQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtd2l4bXAtZWQz/MGE4NmI4YzRjYTg4/Nzc3MzU5NGMyLndp/eG1wLmNvbS9mL2Y1/NjJhYWY0LTVkYmIt/NDYwMy1hMzJiLTZl/ZjZjMjIzMDEzNi9k/aDB3OHF2LTlkOGVl/NmIyLWI0MWEtNDY4/MS1hYjliLThhMjI3/NTYwZGM3NS5qcGcv/djEvZmlsbC93XzEy/ODAsaF83MjAscV83/NSxzdHJwL3RoZV9u/ZXRmbGl4X2xvZ2lu/X2JhY2tncm91bmRf/X2NhbmFkYV9fMjAy/NF9fX2J5X2xvZ29m/ZXZlcnl0X2RoMHc4/cXYtZnVsbHZpZXcu/anBnP3Rva2VuPWV5/SjBlWEFpT2lKS1Yx/UWlMQ0poYkdjaU9p/SklVekkxTmlKOS5l/eUp6ZFdJaU9pSjFj/bTQ2WVhCd09qZGxN/R1F4T0RnNU9ESXlO/alF6TnpOaE5XWXda/RFF4TldWaE1HUXlO/bVV3SWl3aWFYTnpJ/am9pZFhKdU9tRndj/RG8zWlRCa01UZzRP/VGd5TWpZME16Y3pZ/VFZtTUdRME1UVmxZ/VEJrTWpabE1DSXNJ/bTlpYWlJNlcxdDdJ/bWhsYVdkb2RDSTZJ/anc5TnpJd0lpd2lj/R0YwYUNJNklpOW1M/MlkxTmpKaFlXWTBM/VFZrWW1JdE5EWXdN/eTFoTXpKaUxUWmxa/alpqTWpJek1ERXpO/aTlrYURCM09IRjJM/VGxrT0dWbE5tSXlM/V0kwTVdFdE5EWTRN/UzFoWWpsaUxUaGhN/akkzTlRZd1pHTTNO/UzVxY0djaUxDSjNh/V1IwYUNJNklqdzlN/VEk0TUNKOVhWMHNJ/bUYxWkNJNld5SjFj/bTQ2YzJWeWRtbGpa/VHBwYldGblpTNXZj/R1Z5WVhScGIyNXpJ/bDE5LkZTY3JwQUFG/bktxQlZLd2Uyc3ll/aU93dzZtZkg2YXZx/LURSSFpfdUZWTnc");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header.container,
+      footer.container {
+        padding-inline: 80px;
+      }
+
+      .container {
+        padding-block: 20px;
+        padding-inline: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 20px;
+        font-weight: 400;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: default;
+      }
+
+      #logo {
+        width: 150px;
+      }
+
+      button {
+        background-color: #e50914;
+        color: white;
+        border-radius: 4px;
+        border: none;
+        font-weight: 600;
+      }
+
+      button:hover {
+        background: darkred;
+      }
+
+      #sign-in-button {
+        padding: 7px 10px;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+      }
+
+      main > h1 {
+        max-width: 500px;
+        font-size: 55px;
+        margin: 0;
+        line-height: 60px;
+      }
+
+      main > h2 {
+        font-size: 25px;
+      }
+
+      main > p {
+        opacity: 80%;
+      }
+
+      #try-button {
+        padding-block: 15px;
+        padding-inline: 30px;
+        font-size: 25px;
+        margin-top: 15px;
+      }
+
+      footer {
+        padding-block: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      footer > p {
+        opacity: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <img
+        id="logo"
+        src="https://occ.a.nflxso.net/dnmt/api/v6/iL4oJVDYZ8KLSrJ6eG2OwtghbfQ/AAAAAUkLCBtHBbguPPqzaFOzEv4Pw_eS79j0y7ADR4hkB30-HkahpsUb5yvfzgKsfU2oNda-7hpkfYLnXhjc23JVT07PHsGgfsaHAB7qOhy2_5gn-nuKOVSUSBzn-i-O3ea2QQaXx3PYkHes.svg"
+      />
+      <nav>
+        <ol class="nav-menu">
+          <li><a href="#">Genres</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <button id="sign-in-button">Sign in</button>
+        </ol>
+      </nav>
+    </header>
+    <main>
+      <h1>Unlimited movies, shows, and more</h1>
+      <h2>Plans start at ₹149. Cancel anytime.</h2>
+      <p>Ready to watch? Enter your email to start your membership.</p>
+      <button id="try-button">Try 14 days for free</button>
+      <p>New members only. Terms below.</p>
+    </main>
+    <footer class="container">
+      <p id="copyright">© Netflix-2026</p>
+      <p id="rights">All rights reserved</p>
+    </footer>
+  </body>
+</html>
