@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast Decision Engine - Logic Gate</title>
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .result-card {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .prop-row {
+      padding: 10px 14px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      border: 1px solid #dee2e6;
+    }
+  </style>
+</head>
+<body class="py-4">
+
+  <div class="container" style="max-width: 960px;">
+    <!-- Title -->
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-primary">Weather Forecast Decision System</h2>
+      <p class="text-muted mb-1">Discrete Mathematics CIA-1A Interactive Logic Engine</p>
+      <code class="fs-6">Master Formula: A ≡ (P ∧ Q) ∨ S ∨ (T ∧ R)</code>
+    </div>
+
+    <div class="row g-4">
+      <!-- INPUT PANEL -->
+      <div class="col-md-6">
+        <div class="card shadow-sm p-4 h-100">
+          <h5 class="fw-bold border-bottom pb-2 mb-3">1. Sensor Data Inputs</h5>
+
+          <!-- Rain -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Rain Probability (%)</label>
+            <div class="input-group">
+              <input type="number" id="rain" class="form-control" value="92" oninput="updateEngine()">
+              <span class="input-group-text">%</span>
+            </div>
+            <small class="text-muted">Threshold for P: > 80%</small>
+          </div>
+
+          <!-- Wind -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Sustained Wind Speed (km/h)</label>
+            <div class="input-group">
+              <input type="number" id="wind" class="form-control" value="75" oninput="updateEngine()">
+              <span class="input-group-text">km/h</span>
+            </div>
+            <small class="text-muted">Threshold for Q: > 60 km/h</small>
+          </div>
+
+          <!-- Temp -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Air Temperature (°C)</label>
+            <div class="input-group">
+              <input type="number" id="temp" class="form-control" value="16" oninput="updateEngine()">
+              <span class="input-group-text">°C</span>
+            </div>
+            <small class="text-muted">Threshold for R: &lt; 5°C</small>
+          </div>
+
+          <!-- Storm -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold d-block">Thunderstorm Detection</label>
+            <div class="form-check form-switch fs-5">
+              <input class="form-check-input" type="checkbox" id="storm" onchange="updateEngine()">
+              <label class="form-check-label fs-6 align-middle" for="storm">Active Thunderstorm (S)</label>
+            </div>
+          </div>
+
+          <!-- Vis -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Horizontal Visibility (meters)</label>
+            <div class="input-group">
+              <input type="number" id="vis" class="form-control" value="1500" oninput="updateEngine()">
+              <span class="input-group-text">m</span>
+            </div>
+            <small class="text-muted">Threshold for T: &lt; 500 m</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTPUT PANEL -->
+      <div class="col-md-6 d-flex flex-column justify-content-start">
+        <!-- Atomic Propositions -->
+        <div class="card shadow-sm p-4 mb-3">
+          <h5 class="fw-bold border-bottom pb-2 mb-3">2. Evaluated Propositions</h5>
+
+          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
+            <span><strong>P</strong> : Rain &gt; 80%</span>
+            <span id="badgeP" class="badge fs-6">FALSE</span>
+          </div>
+
+          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
+            <span><strong>Q</strong> : Wind &gt; 60 km/h</span>
+            <span id="badgeQ" class="badge fs-6">FALSE</span>
+          </div>
+
+          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
+            <span><strong>R</strong> : Temp &lt; 5°C</span>
+            <span id="badgeR" class="badge fs-6">FALSE</span>
+          </div>
+
+          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
+            <span><strong>S</strong> : Thunderstorm Detected</span>
+            <span id="badgeS" class="badge fs-6">FALSE</span>
+          </div>
+
+          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
+            <span><strong>T</strong> : Visibility &lt; 500m</span>
+            <span id="badgeT" class="badge fs-6">FALSE</span>
+          </div>
+        </div>
+
+        <!-- Master Result Box -->
+        <div id="resultBox" class="card shadow-lg p-4 text-center text-white result-card">
+          <span class="text-uppercase tracking-wider small fw-bold opacity-75">System Output</span>
+          <h1 id="resultTitle" class="fw-bold my-2">A = FALSE</h1>
+          <p id="resultDesc" class="mb-0 fs-5">NORMAL WEATHER STATUS</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateEngine() {
+      // 1. Fetch values
+      const rain = parseFloat(document.getElementById('rain').value) || 0;
+      const wind = parseFloat(document.getElementById('wind').value) || 0;
+      const tempVal = document.getElementById('temp').value;
+      const temp = tempVal === "" ? 0 : parseFloat(tempVal);
+      const storm = document.getElementById('storm').checked;
+      const vis = parseFloat(document.getElementById('vis').value) || 0;
+
+      // 2. Compute Propositions
+      const P = rain > 80;
+      const Q = wind > 60;
+      const R = temp < 5;
+      const S = storm;
+      const T = vis < 500;
+
+      // 3. Compute Rules
+      const rule1 = P && Q;  // Severe Rainstorm
+      const rule2 = S;       // Thunderstorm Override
+      const rule3 = T && R;  // Freezing Fog
+
+      // Master Output Formula
+      const A = rule1 || rule2 || rule3;
+
+      // 4. Update Badges
+      setBadge('badgeP', P);
+      setBadge('badgeQ', Q);
+      setBadge('badgeR', R);
+      setBadge('badgeS', S);
+      setBadge('badgeT', T);
+
+      // 5. Update Output Result Box
+      const resultBox = document.getElementById('resultBox');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultDesc = document.getElementById('resultDesc');
+
+      if (A) {
+        resultBox.className = "card shadow-lg p-4 text-center text-white result-card bg-danger";
+        resultTitle.innerText = "A = TRUE";
+        resultDesc.innerText = "🚨 EMERGENCY WEATHER ALERT GENERATED";
+      } else {
+        resultBox.className = "card shadow-lg p-4 text-center text-white result-card bg-success";
+        resultTitle.innerText = "A = FALSE";
+        resultDesc.innerText = "✅ NORMAL WEATHER STATUS";
+      }
+    }
+
+    function setBadge(id, isTrue) {
+      const badge = document.getElementById(id);
+      if (isTrue) {
+        badge.className = "badge bg-danger fs-6";
+        badge.innerText = "TRUE";
+      } else {
+        badge.className = "badge bg-secondary fs-6";
+        badge.innerText = "FALSE";
+      }
+    }
+
+    // Run automatically on load
+    window.onload = updateEngine;
+  </script>
+</body>
+</html>
