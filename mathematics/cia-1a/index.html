@@ -3,177 +3,647 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Forecast Decision Engine - Logic Gate</title>
+  <title>Weather Forecast Decision Engine | Discrete Math CIA-1A</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
   <style>
+    :root {
+      --primary-color: #0f172a;
+      --accent-blue: #0284c7;
+      --card-bg: #ffffff;
+      --section-bg: #f8fafc;
+      --border-color: #e2e8f0;
+    }
+
     body {
-      background-color: #f8f9fa;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1f5f9;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #334155;
+      overflow-x: hidden;
     }
-    .result-card {
-      transition: background-color 0.3s ease, transform 0.2s ease;
+
+    .academic-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 20px 0;
+      border-bottom: 4px solid var(--accent-blue);
     }
+
+    .university-badge {
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .nav-tabs .nav-link {
+      color: #64748b;
+      font-weight: 600;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--accent-blue);
+      background: transparent;
+      border-bottom: 3px solid var(--accent-blue);
+    }
+
+    .card-custom {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
     .prop-row {
-      padding: 10px 14px;
-      border-radius: 8px;
-      background-color: #ffffff;
-      border: 1px solid #dee2e6;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .formula-badge {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background-color: #0f172a;
+      color: #38bdf8;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      word-break: break-word;
+    }
+
+    .result-banner {
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .clause-box {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      height: 100%;
+    }
+
+    .clause-box.active-clause {
+      background-color: #fef2f2;
+      border-color: #fca5a5;
+      color: #991b1b;
+      font-weight: bold;
+    }
+
+    .table-custom th {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .table-custom td {
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    .truth-table-row:hover {
+      background-color: #f0f9ff;
+      cursor: pointer;
+    }
+
+    /* Mobile responsiveness tweaks */
+    @media (max-width: 768px) {
+      .academic-header {
+        text-align: center;
+      }
+      .academic-header .text-md-end {
+        text-align: center !important;
+      }
+      .nav-tabs .nav-link {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+      .formula-badge {
+        font-size: 11px;
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
-<body class="py-4">
+<body>
 
-  <div class="container" style="max-width: 960px;">
-    <div class="text-center mb-4">
-      <h2 class="fw-bold text-primary">Weather Forecast Decision System</h2>
-      <p class="text-muted mb-1">Discrete Mathematics CIA-1A Interactive Logic Engine</p>
-      <code class="fs-6">Master Formula: A ≡ (P ∧ Q) ∨ S ∨ (T ∧ R)</code>
+  <!-- Academic Header -->
+  <header class="academic-header shadow-sm mb-4">
+    <div class="container-fluid container-lg">
+      <div class="row align-items-center">
+        <div class="col-md-7 mb-3 mb-md-0">
+          <div class="university-badge">Christ (Deemed to be University) • Department of Computer Science</div>
+          <h2 class="fw-bold mb-1 mt-1 text-white fs-3">Weather Forecast Decision Engine</h2>
+          <p class="mb-0 text-slate-300 fs-6">Discrete Mathematics (MAT104-1) CIA-1A Practical Assignment</p>
+        </div>
+        <div class="col-md-5 text-md-end">
+          <div class="bg-slate-800 p-2 rounded border border-slate-700 d-inline-block text-start" style="background: rgba(255,255,255,0.08);">
+            <div class="small text-white"><strong>Student:</strong> Abhisar Verma (26215103)</div>
+            <div class="small text-white"><strong>Class:</strong> 1 BCA (B) | Session 2026-27</div>
+            <div class="small text-white"><strong>Faculty:</strong> Dr. Abhinav Singhal</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="card shadow-sm p-4 h-100">
-          <h5 class="fw-bold border-bottom pb-2 mb-3">1. Sensor Data Inputs</h5>
+  <div class="container-fluid container-lg mb-5">
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Rain Probability (%)</label>
-            <div class="input-group">
-              <input type="number" id="rain" class="form-control" value="92" oninput="updateEngine()">
-              <span class="input-group-text">%</span>
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4 flex-nowrap overflow-x-auto" id="systemTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active text-nowrap" id="simulator-tab" data-bs-toggle="tab" data-bs-target="#simulator" type="button" role="tab"><i class="bi bi-cpu me-2"></i>Interactive Engine</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-nowrap" id="dataset-tab" data-bs-toggle="tab" data-bs-target="#dataset" type="button" role="tab"><i class="bi bi-table me-2"></i>Kaggle Test Cases (10 Rows)</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-nowrap" id="theory-tab" data-bs-toggle="tab" data-bs-target="#theory" type="button" role="tab"><i class="bi bi-journal-text me-2"></i>Report & Math Proofs</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="systemTabContent">
+
+      <!-- TAB 1: INTERACTIVE SIMULATOR (2-COLUMN RESPONSIVE LAYOUT) -->
+      <div class="tab-pane fade show active" id="simulator" role="tabpanel">
+        
+        <div class="card card-custom p-3 mb-4 bg-white">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+              <span class="badge bg-primary mb-1">Discrete Propositional Model</span>
+              <h5 class="mb-0 fw-bold fs-6">Master Formula: A ≡ (P ∧ Q) ∨ S ∨ (T ∧ R) ∨ (H ∧ U)</h5>
             </div>
-            <small class="text-muted">Threshold for P: > 80%</small>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Sustained Wind Speed (km/h)</label>
-            <div class="input-group">
-              <input type="number" id="wind" class="form-control" value="75" oninput="updateEngine()">
-              <span class="input-group-text">km/h</span>
-            </div>
-            <small class="text-muted">Threshold for Q: > 60 km/h</small>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Air Temperature (°C)</label>
-            <div class="input-group">
-              <input type="number" id="temp" class="form-control" value="16" oninput="updateEngine()">
-              <span class="input-group-text">°C</span>
-            </div>
-            <small class="text-muted">Threshold for R: &lt; 5°C</small>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-semibold d-block">Thunderstorm Detection</label>
-            <div class="form-check form-switch fs-5">
-              <input class="form-check-input" type="checkbox" id="storm" onchange="updateEngine()">
-              <label class="form-check-label fs-6 align-middle" for="storm">Active Thunderstorm (S)</label>
+            <div class="formula-badge">
+              Output A = 1 (TRUE) ➔ Emergency Alert | Output A = 0 (FALSE) ➔ Normal Status
             </div>
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Horizontal Visibility (meters)</label>
-            <div class="input-group">
-              <input type="number" id="vis" class="form-control" value="1500" oninput="updateEngine()">
-              <span class="input-group-text">m</span>
+        <div class="row g-3 g-lg-4">
+          <!-- Column 1: Sensor Inputs -->
+          <div class="col-12 col-lg-5">
+            <div class="card card-custom p-3 p-md-4 h-100">
+              <h5 class="fw-bold border-bottom pb-2 mb-3 text-dark fs-6"><i class="bi bi-sliders me-2 text-primary"></i>1. Sensor Data Inputs</h5>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold small mb-1">Rain Probability (%)</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" id="rain" class="form-control" value="92" min="0" max="100" oninput="updateEngine()">
+                  <span class="input-group-text">%</span>
+                </div>
+                <div class="form-text text-muted" style="font-size: 11px;">Prop <strong>P</strong> triggers if Rain &gt; 80%</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold small mb-1">Sustained Wind Speed (km/h)</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" id="wind" class="form-control" value="75" min="0" oninput="updateEngine()">
+                  <span class="input-group-text">km/h</span>
+                </div>
+                <div class="form-text text-muted" style="font-size: 11px;">Prop <strong>Q</strong> triggers if Wind &gt; 60 km/h</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold small mb-1">Air Temperature (°C)</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" id="temp" class="form-control" value="16" oninput="updateEngine()">
+                  <span class="input-group-text">°C</span>
+                </div>
+                <div class="form-text text-muted" style="font-size: 11px;">Prop <strong>R</strong> (Cold &lt; 5°C) | Prop <strong>H</strong> (Heat &gt; 42°C)</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold small mb-1">Horizontal Visibility (meters)</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" id="vis" class="form-control" value="1500" min="0" oninput="updateEngine()">
+                  <span class="input-group-text">m</span>
+                </div>
+                <div class="form-text text-muted" style="font-size: 11px;">Prop <strong>T</strong> triggers if Visibility &lt; 500m</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold small mb-1">Relative Humidity (%) [Proposed Extension]</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" id="humidity" class="form-control" value="45" min="0" max="100" oninput="updateEngine()">
+                  <span class="input-group-text">%</span>
+                </div>
+                <div class="form-text text-muted" style="font-size: 11px;">Prop <strong>U</strong> triggers if Humidity &gt; 80%</div>
+              </div>
+
+              <div class="mb-2">
+                <label class="form-label fw-semibold small d-block mb-1">Radar Weather Scan</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="storm" onchange="updateEngine()">
+                  <label class="form-check-label small fw-bold" for="storm">Active Thunderstorm Detected (S)</label>
+                </div>
+              </div>
+
             </div>
-            <small class="text-muted">Threshold for T: &lt; 500 m</small>
+          </div>
+
+          <!-- Column 2: Proposition Evaluation & Output Diagnostic -->
+          <div class="col-12 col-lg-7 d-flex flex-column gap-3">
+            
+            <!-- Evaluated Atomic Propositions -->
+            <div class="card card-custom p-3 p-md-4">
+              <h5 class="fw-bold border-bottom pb-2 mb-3 text-dark fs-6"><i class="bi bi-check2-square me-2 text-primary"></i>2. Evaluated Atomic Propositions</h5>
+              
+              <div class="row g-2">
+                <div class="col-12 col-sm-6">
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>P</strong> : Rain &gt; 80%</span>
+                    <span id="badgeP" class="badge">FALSE</span>
+                  </div>
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>Q</strong> : Wind &gt; 60 km/h</span>
+                    <span id="badgeQ" class="badge">FALSE</span>
+                  </div>
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>R</strong> : Temp &lt; 5°C</span>
+                    <span id="badgeR" class="badge">FALSE</span>
+                  </div>
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>S</strong> : Thunderstorm Radar</span>
+                    <span id="badgeS" class="badge">FALSE</span>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>T</strong> : Vis &lt; 500m</span>
+                    <span id="badgeT" class="badge">FALSE</span>
+                  </div>
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>H</strong> : Temp &gt; 42°C [New]</span>
+                    <span id="badgeH" class="badge">FALSE</span>
+                  </div>
+                  <div class="prop-row d-flex justify-content-between align-items-center">
+                    <span><strong>U</strong> : Humidity &gt; 80% [New]</span>
+                    <span id="badgeU" class="badge">FALSE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sub-Rule Diagnostics -->
+            <div class="card card-custom p-3">
+              <h6 class="fw-bold text-dark mb-2" style="font-size: 13px;">Sub-Rule Clause Breakdown Diagnostic</h6>
+              <div class="row g-2">
+                <div class="col-6 col-md-3">
+                  <div id="clause1" class="clause-box text-center">
+                    <div class="fw-bold" style="font-size: 11px;">Rule 1 (Rainstorm)</div>
+                    <div>P ∧ Q</div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div id="clause2" class="clause-box text-center">
+                    <div class="fw-bold" style="font-size: 11px;">Rule 2 (Storm)</div>
+                    <div>S</div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div id="clause3" class="clause-box text-center">
+                    <div class="fw-bold" style="font-size: 11px;">Rule 3 (Freezing Fog)</div>
+                    <div>T ∧ R</div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div id="clause4" class="clause-box text-center">
+                    <div class="fw-bold" style="font-size: 11px;">Rule 4 (Heatwave)</div>
+                    <div>H ∧ U</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final System Decision Output -->
+            <div id="resultBox" class="result-banner text-white shadow">
+              <span class="text-uppercase tracking-wider small fw-bold opacity-75">Final Master Logic Output</span>
+              <h2 id="resultTitle" class="fw-bold my-1 fs-3">A = FALSE</h2>
+              <p id="resultDesc" class="mb-1 fs-6">NORMAL WEATHER STATUS (NO ALERT)</p>
+              <div id="triggerReason" class="small fw-semibold mt-2 pt-2 border-top border-white-50" style="display: none;"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: KAGGLE DATASET & TRUTH TABLE -->
+      <div class="tab-pane fade" id="dataset" role="tabpanel">
+        <div class="card card-custom p-3 p-md-4">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <div>
+              <h5 class="fw-bold mb-0 fs-6">Kaggle Weather Dataset Sample Evaluation (10 Test Cases)</h5>
+              <p class="text-muted small mb-0">Click on any row to load its exact numerical values directly into the Interactive Simulator.</p>
+            </div>
+            <span class="badge bg-secondary">Mapping: Table 1 from Report</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custom text-center mb-0">
+              <thead>
+                <tr>
+                  <th>Sample ID</th>
+                  <th>Rain (%)</th>
+                  <th>Wind (km/h)</th>
+                  <th>Temp (°C)</th>
+                  <th>Storm</th>
+                  <th>Visibility</th>
+                  <th>P Q R S T</th>
+                  <th>Alert (A)</th>
+                  <th>Evaluated Condition / Hazard Reason</th>
+                </tr>
+              </thead>
+              <tbody id="kaggleTableBody">
+                <!-- Data populated dynamically by JavaScript -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6 d-flex flex-column justify-content-start">
-        <div class="card shadow-sm p-4 mb-3">
-          <h5 class="fw-bold border-bottom pb-2 mb-3">2. Evaluated Propositions</h5>
+      <!-- TAB 3: REPORT & MATHEMATICAL PROOFS -->
+      <div class="tab-pane fade" id="theory" role="tabpanel">
+        <div class="row g-3 g-lg-4">
+          
+          <!-- Abstract & Atomic Propositions -->
+          <div class="col-12 col-lg-6">
+            <div class="card card-custom p-3 p-md-4 h-100">
+              <h5 class="fw-bold text-primary border-bottom pb-2 mb-3 fs-6">1. Atomic Propositions & Thresholds</h5>
+              <p class="small text-muted">An atomic proposition is a declarative statement that is strictly True (1) or strictly False (0). Below are the threshold criteria used in this decision engine:</p>
+              
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered small">
+                  <thead class="table-light">
+                    <tr><th>Symbol</th><th>Logical Statement</th><th>Threshold Criterion</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><strong>P</strong></td><td>High Rain Probability</td><td>Rain Probability &gt; 80%</td></tr>
+                    <tr><td><strong>Q</strong></td><td>High Wind Speed</td><td>Sustained Wind &gt; 60 km/h</td></tr>
+                    <tr><td><strong>R</strong></td><td>Freezing Temperature</td><td>Temperature &lt; 5°C</td></tr>
+                    <tr><td><strong>S</strong></td><td>Active Thunderstorm</td><td>Radar Detection = True</td></tr>
+                    <tr><td><strong>T</strong></td><td>Low Visibility</td><td>Visibility &lt; 500 meters</td></tr>
+                    <tr><td><strong>H</strong></td><td>Extreme Heatwave</td><td>Temperature &gt; 42°C [New]</td></tr>
+                    <tr><td><strong>U</strong></td><td>Extreme Humidity</td><td>Humidity &gt; 80% [New]</td></tr>
+                    <tr><td><strong>A</strong></td><td>Emergency Alert</td><td>System Output Variable</td></tr>
+                  </tbody>
+                </table>
+              </div>
 
-          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
-            <span><strong>P</strong> : Rain &gt; 80%</span>
-            <span id="badgeP" class="badge fs-6">FALSE</span>
+              <h5 class="fw-bold text-primary border-bottom pb-2 mb-2 mt-3 fs-6">2. Hazard Sub-Rules</h5>
+              <ul class="small text-muted ps-3 mb-0">
+                <li class="mb-1"><strong>Rule 1 (Severe Rainstorm):</strong> (P ∧ Q) ⇒ A — Rain and wind must occur simultaneously.</li>
+                <li class="mb-1"><strong>Rule 2 (Thunderstorm Hazard):</strong> S ⇒ A — Thunderstorms override all other sensors.</li>
+                <li class="mb-1"><strong>Rule 3 (Freezing Fog):</strong> (T ∧ R) ⇒ A — Low visibility combined with freezing cold.</li>
+                <li><strong>Rule 4 (Proposed Heatwave):</strong> (H ∧ U) ⇒ A — Extreme heat paired with oppressive moisture.</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
-            <span><strong>Q</strong> : Wind &gt; 60 km/h</span>
-            <span id="badgeQ" class="badge fs-6">FALSE</span>
+          <!-- Formal Proof & De Morgan's Simplification -->
+          <div class="col-12 col-lg-6">
+            <div class="card card-custom p-3 p-md-4 h-100">
+              <h5 class="fw-bold text-primary border-bottom pb-2 mb-3 fs-6">3. Simplification via De Morgan's Laws</h5>
+              <p class="small text-muted">To understand when the system produces <strong>No Alert (¬A)</strong>, we simplify the negation of the Master Formula using De Morgan's Laws:</p>
+              
+              <div class="p-3 bg-light rounded border mb-3 font-monospace small" style="line-height: 1.6;">
+                ¬A ≡ ¬((P ∧ Q) ∨ S ∨ (T ∧ R))<br>
+                ¬A ≡ ¬(P ∧ Q) ∧ ¬S ∧ ¬(T ∧ R) &nbsp;<em>(De Morgan's Disjunction)</em><br>
+                ¬A ≡ (¬P ∨ ¬Q) ∧ ¬S ∧ (¬T ∨ ¬R) &nbsp;<em>(De Morgan's Conjunction)</em>
+              </div>
+              <p class="small text-muted"><strong>Meaning:</strong> No Alert (¬A) is generated if and only if there is no thunderstorm (¬S), AND either rain or wind is below threshold, AND either visibility or temperature is safe.</p>
+
+              <h5 class="fw-bold text-primary border-bottom pb-2 mb-2 fs-6">4. Formal Proof via Modus Ponens</h5>
+              <p class="small text-muted mb-2">Proof for Sample ID 4 (Rainstorm Hazard: P = True, Q = True):</p>
+              
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered small">
+                  <thead class="table-light">
+                    <tr><th>Step</th><th>Logical Statement</th><th>Reason / Rule of Inference</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1</td><td>P</td><td>Given Premise (Rain = 92%)</td></tr>
+                    <tr><td>2</td><td>Q</td><td>Given Premise (Wind = 75 km/h)</td></tr>
+                    <tr><td>3</td><td>P ∧ Q</td><td>Conjunction Rule (Steps 1, 2)</td></tr>
+                    <tr><td>4</td><td>(P ∧ Q) ∨ S ∨ (T ∧ R)</td><td>Addition Rule (Step 3)</td></tr>
+                    <tr><td>5</td><td>((P ∧ Q) ∨ S ∨ (T ∧ R)) ⇒ A</td><td>Given Master System Rule</td></tr>
+                    <tr class="table-success"><td>6</td><td><strong>A = TRUE</strong></td><td>Modus Ponens (Steps 4, 5)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
-          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
-            <span><strong>R</strong> : Temp &lt; 5°C</span>
-            <span id="badgeR" class="badge fs-6">FALSE</span>
+          <!-- Discussion & Limitations -->
+          <div class="col-12">
+            <div class="card card-custom p-3 p-md-4">
+              <h5 class="fw-bold text-primary border-bottom pb-2 mb-3 fs-6">5. Discussion, Limitations & Fuzzy Logic Extension</h5>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <h6><strong>Limitation of Crisp Propositional Logic:</strong></h6>
+                  <p class="small text-muted mb-0">
+                    Crisp logic requires strict boundaries. For example, under proposition P (Rain &gt; 80%), a reading of 80.1% evaluates to <strong>TRUE</strong> while 79.9% evaluates to <strong>FALSE</strong>. In real meteorological systems, physical phenomena exist along a continuous spectrum.
+                  </p>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h6><strong>Future Scope — Fuzzy Logic:</strong></h6>
+                  <p class="small text-muted mb-0">
+                    To prevent sharp boundary errors, real-world weather systems like IMD integrate Fuzzy Logic where truth values range smoothly between 0.0 and 1.0, allowing continuous transitions in danger severity.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
-            <span><strong>S</strong> : Thunderstorm Detected</span>
-            <span id="badgeS" class="badge fs-6">FALSE</span>
-          </div>
-
-          <div class="prop-row d-flex justify-content-between align-items-center mb-2">
-            <span><strong>T</strong> : Visibility &lt; 500m</span>
-            <span id="badgeT" class="badge fs-6">FALSE</span>
-          </div>
-        </div>
-
-        <div id="resultBox" class="card shadow-lg p-4 text-center text-white result-card">
-          <span class="text-uppercase tracking-wider small fw-bold opacity-75">System Output</span>
-          <h1 id="resultTitle" class="fw-bold my-2">A = FALSE</h1>
-          <p id="resultDesc" class="mb-0 fs-5">NORMAL WEATHER STATUS</p>
         </div>
       </div>
+
     </div>
+
   </div>
 
+  <footer class="text-center py-3 text-muted border-top bg-white small">
+    MAT104-1 Discrete Mathematics Assignment | Christ (Deemed to be University) | 2026-27
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
+    // Kaggle Sample Dataset from Report
+    const kaggleData = [
+      { id: 1, rain: 15, wind: 18, temp: 24, storm: false, vis: 2500, hum: 45, reason: "Normal Weather" },
+      { id: 2, rain: 40, wind: 25, temp: 2, storm: false, vis: 350, hum: 50, reason: "Freezing Fog (T ∧ R)" },
+      { id: 3, rain: 85, wind: 35, temp: 18, storm: false, vis: 1200, hum: 55, reason: "High Rain Only (No Wind)" },
+      { id: 4, rain: 92, wind: 75, temp: 16, storm: false, vis: 1500, hum: 60, reason: "Severe Rainstorm (P ∧ Q)" },
+      { id: 5, rain: 35, wind: 40, temp: 28, storm: true, vis: 1800, hum: 65, reason: "Thunderstorm Override (S)" },
+      { id: 6, rain: 20, wind: 15, temp: 3, storm: false, vis: 1000, hum: 40, reason: "Cold Day with Clear Visibility" },
+      { id: 7, rain: 60, wind: 20, temp: 15, storm: false, vis: 300, hum: 50, reason: "Low Vis without Low Temp" },
+      { id: 8, rain: 95, wind: 82, temp: 1, storm: true, vis: 200, hum: 85, reason: "Compound Severe Hazards" },
+      { id: 9, rain: 50, wind: 68, temp: 22, storm: false, vis: 3000, hum: 45, reason: "High Wind Only (No Rain)" },
+      { id: 10, rain: 70, wind: 30, temp: -2, storm: false, vis: 400, hum: 50, reason: "Freezing Fog (T ∧ R)" }
+    ];
+
     function updateEngine() {
       const rain = parseFloat(document.getElementById('rain').value) || 0;
       const wind = parseFloat(document.getElementById('wind').value) || 0;
       const tempVal = document.getElementById('temp').value;
       const temp = tempVal === "" ? 0 : parseFloat(tempVal);
-      const storm = document.getElementById('storm').checked;
       const vis = parseFloat(document.getElementById('vis').value) || 0;
+      const hum = parseFloat(document.getElementById('humidity').value) || 0;
+      const storm = document.getElementById('storm').checked;
 
+      // Atomic Proposition Evaluations
       const P = rain > 80;
       const Q = wind > 60;
       const R = temp < 5;
       const S = storm;
       const T = vis < 500;
+      const H = temp > 42;
+      const U = hum > 80;
 
-      const rule1 = P && Q;  
+      // Sub-Rule Clause Evaluations
+      const rule1 = P && Q; 
       const rule2 = S;      
       const rule3 = T && R; 
+      const rule4 = H && U; 
 
-      const A = rule1 || rule2 || rule3;
+      // Master Formula: A
+      const A = rule1 || rule2 || rule3 || rule4;
 
+      // Update Proposition Badges
       setBadge('badgeP', P);
       setBadge('badgeQ', Q);
       setBadge('badgeR', R);
       setBadge('badgeS', S);
       setBadge('badgeT', T);
+      setBadge('badgeH', H);
+      setBadge('badgeU', U);
 
+      // Update Clause Diagnostics
+      setClause('clause1', rule1);
+      setClause('clause2', rule2);
+      setClause('clause3', rule3);
+      setClause('clause4', rule4);
+
+      // Update Result Banner
       const resultBox = document.getElementById('resultBox');
       const resultTitle = document.getElementById('resultTitle');
       const resultDesc = document.getElementById('resultDesc');
+      const triggerReason = document.getElementById('triggerReason');
 
       if (A) {
-        resultBox.className = "card shadow-lg p-4 text-center text-white result-card bg-danger";
+        resultBox.className = "result-banner text-white shadow bg-danger";
         resultTitle.innerText = "A = TRUE";
         resultDesc.innerText = "🚨 EMERGENCY WEATHER ALERT GENERATED";
+
+        let activeTriggers = [];
+        if (rule1) activeTriggers.push("Rule 1: Severe Rainstorm (P ∧ Q)");
+        if (rule2) activeTriggers.push("Rule 2: Active Thunderstorm (S)");
+        if (rule3) activeTriggers.push("Rule 3: Freezing Fog (T ∧ R)");
+        if (rule4) activeTriggers.push("Rule 4: Extreme Heatwave (H ∧ U)");
+
+        triggerReason.style.display = "block";
+        triggerReason.innerHTML = "<strong>Triggered By:</strong> " + activeTriggers.join(" | ");
       } else {
-        resultBox.className = "card shadow-lg p-4 text-center text-white result-card bg-success";
+        resultBox.className = "result-banner text-white shadow bg-success";
         resultTitle.innerText = "A = FALSE";
-        resultDesc.innerText = "✅ NORMAL WEATHER STATUS";
+        resultDesc.innerText = "✅ NORMAL WEATHER STATUS (NO ALERT)";
+        triggerReason.style.display = "none";
       }
     }
 
     function setBadge(id, isTrue) {
       const badge = document.getElementById(id);
       if (isTrue) {
-        badge.className = "badge bg-danger fs-6";
+        badge.className = "badge bg-danger";
         badge.innerText = "TRUE";
       } else {
-        badge.className = "badge bg-secondary fs-6";
+        badge.className = "badge bg-secondary opacity-75";
         badge.innerText = "FALSE";
       }
     }
 
-    window.onload = updateEngine;
+    function setClause(id, isActive) {
+      const box = document.getElementById(id);
+      if (isActive) {
+        box.className = "clause-box text-center active-clause";
+      } else {
+        box.className = "clause-box text-center";
+      }
+    }
+
+    function populateKaggleTable() {
+      const tbody = document.getElementById('kaggleTableBody');
+      tbody.innerHTML = '';
+
+      kaggleData.forEach(row => {
+        const P = row.rain > 80;
+        const Q = row.wind > 60;
+        const R = row.temp < 5;
+        const S = row.storm;
+        const T = row.vis < 500;
+        const A = (P && Q) || S || (T && R);
+
+        const bitString = `${P ? 'T':'F'} ${Q ? 'T':'F'} ${R ? 'T':'F'} ${S ? 'T':'F'} ${T ? 'T':'F'}`;
+
+        const tr = document.createElement('tr');
+        tr.className = "truth-table-row";
+        tr.onclick = () => loadSampleIntoSimulator(row);
+
+        tr.innerHTML = `
+          <td><strong>${row.id}</strong></td>
+          <td>${row.rain}%</td>
+          <td>${row.wind} km/h</td>
+          <td>${row.temp}°C</td>
+          <td>${row.storm ? '<span class="badge bg-warning text-dark">YES</span>' : 'NO'}</td>
+          <td>${row.vis}m</td>
+          <td><code>${bitString}</code></td>
+          <td><span class="badge ${A ? 'bg-danger':'bg-success'}">${A ? 'TRUE' : 'FALSE'}</span></td>
+          <td class="text-start">${row.reason}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function loadSampleIntoSimulator(sample) {
+      document.getElementById('rain').value = sample.rain;
+      document.getElementById('wind').value = sample.wind;
+      document.getElementById('temp').value = sample.temp;
+      document.getElementById('vis').value = sample.vis;
+      document.getElementById('humidity').value = sample.hum || 45;
+      document.getElementById('storm').checked = sample.storm;
+
+      updateEngine();
+
+      // Switch tab to simulator
+      const simTab = new bootstrap.Tab(document.getElementById('simulator-tab'));
+      simTab.show();
+    }
+
+    window.onload = function() {
+      populateKaggleTable();
+      updateEngine();
+    };
   </script>
 </body>
 </html>
